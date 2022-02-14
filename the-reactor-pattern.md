@@ -85,7 +85,7 @@ If we look back at our previous example it would mean calling `event.callback(da
 
 **Libuv** is the I/O engine of node.js and it implement the reactor pattern. Since operating systems have different way to deal with I/O operations, **Libuv** was created to have a reliable and consistent way to manage I/O operation disregarding the operating system it is running on.
 
-Learn more at nodejsdp.link/uvbook
+Learn more at [nodejsdp.link/uvbook](nodejsdp.link/uvbook)
 
 
 *This content and it's example were inspired from **Node.js Design Patterns** written by Mario Casciaro and Luciano Mammino
