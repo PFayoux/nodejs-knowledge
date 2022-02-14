@@ -77,7 +77,7 @@ The handler will be invoked as soon as an event is produced, and it will be proc
 
 If we look back at our previous example it would mean calling `event.callback(data)` instead of the `consume(data)`.
 
-![Reactor pattern schema](./image/reactor-pattern.svg)
+![Reactor pattern schema](./img/reactor-pattern.svg)
 
 ## Libuv
 
