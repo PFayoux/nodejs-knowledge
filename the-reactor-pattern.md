@@ -2,7 +2,9 @@
 
 ## I/O operation
 
-I/O operations are known to be the slowest among the fundamental operations of a computer. Because accessing data on a disk cost much more than accessing the intern memory of a processor or accessing the RAM.
+I/O operations are known to be the slowest among the fundamental operations of a computer. Because accessing data on a disk cost much more than accessing the intern memory of a processor or accessing the RAM. 
+
+That's why multiple way of accessing resources has been created, let's first introduce the blocking I/O and non-blocking I/O, then will see the synchronous event demultiplexer and finally we will get to the reactor pattern.
 
 ## Blocking I/O
 
