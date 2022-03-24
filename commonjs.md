@@ -90,3 +90,4 @@ moduleA :
 
 The reason is that when requiring the *moduleA* the first time in *index.js*, everything that is exported before the `require('./moduleB')` will be set in the cache. In this case it's the `{ loading: false }̀  , so when *moduleA* is requiring *moduleB*, *moduleB* can only see the values set in the cache. When *moduleA* will finish it's first execution, it then replace it's `module.exports` with a new object, but the cache will still point to the original one, and it's value will not be updated.
 
+Learn more at [https://nodejs.org/api/modules.html#modules-commonjs-modules](Node.js documentation of Common.js modules)
