@@ -17,14 +17,14 @@ const { promises } = require('fs')
 
 const logPath = process.env.path || "./message.log"
 
-levels = {
+const levels = {
   debug: "Debug",
   info: "Info",
   warn: "Warning",
   error: "Error"
 }
 
-log = async (message, level) => {
+const log = async (message, level) => {
   await promises.appendFile(logPath, `${level} : ${message}`)
 }
 
