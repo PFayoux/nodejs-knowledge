@@ -108,4 +108,4 @@ When *moduleA* is finishing its execution, it replaces its `module.exports` with
 
 The cache for *moduleA* or *moduleB* will never be updated after that. Any other modules requiring those will always receive the attributes stored in the cache.
 
-Learn more at [https://nodejs.org/api/modules.html#modules-commonjs-modules](Node.js documentation of Common.js modules)
+Learn more at [documentation of Common.js modules](https://nodejs.org/api/modules.html#modules-commonjs-modulesNode.js)
