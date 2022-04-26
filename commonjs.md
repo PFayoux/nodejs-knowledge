@@ -10,7 +10,7 @@ The concept behind a module is that it can import other modules and expose some 
 
 Let's see an example :
 
-```
+```javascript
 // log.js
 
 const { promises } = require('fs')
@@ -43,7 +43,8 @@ module.exports = {
 `exports` is a reference to `module.exports`, so beware when you are using it because there are a couple of things that will not work, e.g. :
 
 When executing the code below, the `module.exports` will override the attribute set with `exports`, only `otherAttribute` will be exported.
-```
+
+```javascript
 exports.attribute = 'my_attribute_value'
 
 module.exports = {
@@ -52,7 +53,8 @@ module.exports = {
 ```
 
 When executing the code below, the module will not export anything because we are just changing the reference of `exports`
-```
+
+```javascript
 exports.objectAttribute = {
   anyAttribute: 'any_attribute_value'
 }
@@ -63,7 +65,9 @@ exports.objectAttribute = {
 With Common.js, modules are loaded at the execution of the file. 
 
 For example, if we have a *main.js* file like this : 
-```
+
+
+```javascript
 const module1 = require(./module1.js)
 
 // do any code
@@ -80,7 +84,7 @@ The method `require` will keep a cache to avoid loading twice the same module, a
 
 However, with Common.js, circular dependency will still not be resolved correctly. You can look at the example in the folder *code_example/commonjs*. If you try to run it with `nodejs index.js`, you will see the following result : 
 
-```
+```javascript
 moduleA :
 { loading: true, b: { loading: true, a: { loading: false } } }
 
@@ -94,7 +98,7 @@ In this case, it will be `{ loading: false }`, so when *moduleA* is requiring *m
 
 After *moduleB* has finished its execution, the cache will store the following attributes for the *moduleB* exports : 
 
-```
+```javascript
 { loading: true, a: { loading: false } }
 ```
 
@@ -102,7 +106,7 @@ This is what *moduleA* will get for *moduleB*.
 
 When *moduleA* is finishing its execution, it replaces its `module.exports` with a new set of attributes containing the *moduleB* in cache : 
 
-```
+```javascript
 { loading: true, b: { loading: true, a: { loading: false } } }
 ```
 
