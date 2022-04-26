@@ -42,7 +42,7 @@ module.exports = {
 
 `exports` is a reference to `module.exports`, so beware when you are using it because there are a couple of things that will not work, e.g. :
 
-When executing the code below, the `module.exports` will override the attribute set with `exports`; only `otherAttribute` will be exported.
+When executing the code below, the `module.exports` will override the attribute set with `exports`, only `otherAttribute` will be exported.
 ```
 exports.attribute = 'my_attribute_value'
 
@@ -62,7 +62,7 @@ exports.objectAttribute = {
 
 With Common.js, modules are loaded at the execution of the file. 
 
-So for example, if we have a *main.js* file like this : 
+For example, if we have a *main.js* file like this : 
 ```
 const module1 = require(./module1.js)
 
