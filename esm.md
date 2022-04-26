@@ -1,59 +1,87 @@
- # EcmaScript Module
+# EcmaScript Module
 
- ## 
+## 
 
- ## Syntax
+## Syntax
 
- Instead of `require`, `module.exports` and `exports` like it is for Common.js, ECMAScript Module use `import`, `import ... from ...` to import modules, and `export` to expose attributes, but ECMAScript add a new way of exposing attributes with the concept of default export.
+Instead of `require`, `module.exports` and `exports` like it is for Common.js, ECMAScript Module use `import ... from ...` to import modules, and `export` to expose attributes, but ECMAScript add a new way of exposing attributes with the concept of default export.
 
-Let's see an example. We will take the same module has before but this time we will use ECMAScript Module syntax :
+Let's see an example. 
 
+If we take the previous example, to import the `fs` module we could do the following : 
+
+```javascript
+import fs from 'fs'
 ```
-// log.js
 
+```javascript
+import * as fs from 'fs'
+```
+
+```javascript
 import { promises } from 'fs'
-
-const logPath = process.env.path || "./message.log"
-
-const levels = {
-  debug: "Debug",
-  info: "Info",
-  warn: "Warning",
-  error: "Error"
-}
-
-export const log = async (message, level) => {
-  await promises.appendFile(logPath, `${level} : ${message}`)
-}
-
-export default = {
-  debug: (message) => log(message, levels.debug),
-  info: (message) => log(message, levels.info),
-  warn: (message) => log(message, levels.warn),
-  error: (message) => log(message, levels.error)
-}
 ```
 
- - `const { promises } = require('fs')` is used to import the `promises` object of the module `fs`.
- - The `logPath`, `levels`, and `log` will not be accessible to other modules that might import our module because we don't export them.
- - In `module.exports`, we define the exported attribute of our module.
-
-`exports` is a reference to `module.exports`, so beware when you are using it because there are a couple of things that will not work, e.g. :
-
-When executing the code below, the `module.exports` will override the attribute set with `exports`, only `otherAttribute` will be exported.
+```javascript
+const fs = await import('fs')
 ```
-exports.attribute = 'my_attribute_value'
 
-module.exports = {
-  otherAttribute: 'other_attribute_value'
+To expose the attributes, if we wanted our module to have the same behaviour as the common.js definition, we would do this instead of the `module.exports` :
+
+```javascript
+  export {
+    debug: (message) => log(message, levels.debug),
+    info: (message) => log(message, levels.info),
+    warn: (message) => log(message, levels.warn),
+    error: (message) => log(message, levels.error)
+  }
+```
+
+Or this would do also the same
+
+```javascript
+  export const debug = (message) => log(message, levels.debug)
+  export const info = (message) => log(message, levels.info)
+  export const warn = (message) => log(message, levels.warn)
+  export const error = (message) => log(message, levels.error)
+```
+
+This is what we call the "named export" in ESM, and this is what is done in Common.js.
+
+ECMAScript introduce another type of export called "default export" which doesn't exist in Common.js. 
+
+```javascript
+const debug = (message) => log(message, levels.debug)
+const info = (message) => log(message, levels.info)
+const warn = (message) => log(message, levels.warn)
+const error = (message) => log(message, levels.error)
+
+const moduleExport = {
+  debug
+  info
+  warn
+  error
 }
+
+export default moduleExport
 ```
 
-When executing the code below, the module will not export anything because we are just changing the reference of `exports`
-```
-exports.objectAttribute = {
-  anyAttribute: 'any_attribute_value'
+We can mixe named export and default export : 
+
+```javascript
+export const debug = (message) => log(message, levels.debug)
+export const info = (message) => log(message, levels.info)
+export const warn = (message) => log(message, levels.warn)
+export const error = (message) => log(message, levels.error)
+
+const moduleExport = {
+  debug
+  info
+  warn
+  error
 }
+
+export default moduleExport
 ```
 
  ## Circular Dependency
