@@ -1,10 +1,12 @@
 # EcmaScript Module
 
-## 
+## The second module system of Node.js
+
+ECMAScript Module has been created after CommonJS and solve most of the issue CommonJS had.
 
 ## Syntax
 
-Instead of `require`, `module.exports` and `exports` like it is for Common.js, ECMAScript Module use `import ... from ...` to import modules, and `export` to expose attributes, but ECMAScript add a new way of exposing attributes with the concept of default export.
+Instead of `require`, `module.exports` and `exports` like it is for CommonJS, ECMAScript Module use `import ... from ...` to import modules, and `export` to expose attributes, but ECMAScript add a new way of exposing attributes with the concept of default export.
 
 Let's see an example. 
 
@@ -26,7 +28,7 @@ import { promises } from 'fs'
 const fs = await import('fs')
 ```
 
-To expose the attributes, if we wanted our module to have the same behaviour as the common.js definition, we would do this instead of the `module.exports` :
+To expose the attributes, if we wanted our module to have the same behaviour as the CommonJS definition, we would do this instead of the `module.exports` :
 
 ```javascript
   export {
@@ -46,9 +48,9 @@ Or this would do also the same
   export const error = (message) => log(message, levels.error)
 ```
 
-This is what we call the "named export" in ESM, and this is what is done in Common.js.
+This is what we call the "named export" in ESM, and this is what is done in CommonJS.
 
-ECMAScript introduce another type of export called "default export" which doesn't exist in Common.js. 
+ECMAScript introduce another type of export called "default export" which doesn't exist in CommonJS. 
 
 ```javascript
 const debug = (message) => log(message, levels.debug)
@@ -84,4 +86,17 @@ const moduleExport = {
 export default moduleExport
 ```
 
+## Loading modules asynchronously
+
+With ESM `import ... from ...` will be resolved before any execution of file. So it can't be used to load a module during the execution, for example if you want to load a module conditionally or asynchronously.
+
+To load a module at execution time, you can use the `import` method, it very similar to `require` in CommonJS. Furthermore ESM add the possibilty to use `await` directly in the global scope, so it makes thing much more elegant if you need to deal with asynchronous module.
+
+For example, you could do : 
+
+```javascript
+const myModule = await import('my-module')
+```
+
  ## Circular Dependency
+

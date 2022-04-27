@@ -2,11 +2,11 @@
 
 ## The first module system of Node.js
 
-The Common.js specification has been created to define a module system for JavaScript in browserLess environments. Node.js implemented this specification to provide a first module system before the ECMAScript modules specification existed.
+The CommonJS specification has been created to define a module system for JavaScript in browserLess environments. Node.js implemented this specification to provide a first module system before the ECMAScript modules specification existed.
 
 ## Syntax
 
-The concept behind a module is that it can import other modules and expose some attributes like functions, variables, objects... In Common.js, we will use `require` to import other modules and `module.exports` or `exports` to expose attributes. Any code not assigned to `module.exports` or `exports` will remain private.
+The concept behind a module is that it can import other modules and expose some attributes like functions, variables, objects... In CommonJS, we will use `require` to import other modules and `module.exports` or `exports` to expose attributes. Any code not assigned to `module.exports` or `exports` will remain private.
 
 Let's see an example :
 
@@ -60,9 +60,52 @@ exports.objectAttribute = {
 }
 ```
 
+## Loading modules asynchronously
+
+As we saw, in CommonJS `require`, `module.exports`, and `exports` can be called whenever you want. It means that you can `require` a module at any time in the code or even load it asynchronously.
+
+For example, you could require a module inside the core of a method :
+
+```javascript
+function my_method () {
+  const myModule = require('my-module')
+  ...
+}
+```
+
+A module could export a promise, which mean it should be loaded asynchronously.
+
+For example, we could define a asynchronous module like this : 
+
+```javascript
+async function createModuleAttributes () { 
+  return Promise.resolve({
+    anyAttribute: 'any_attribute_value'
+  })
+}
+```
+
+It would be loaded like this :
+
+```javascript
+require('my-module').then(myModule => {
+  myModule.anyAttribute
+  ...
+})
+```
+
+Or inside an async method :
+
+```javascript
+async function myAsyncMethod () {
+  const myModule = await require('my-module')
+  ...
+}
+```
+
 ## Circular Dependency
 
-With Common.js, modules are loaded at the execution of the file. 
+With CommonJS, modules are loaded at the execution of the file. 
 
 For example, if we have a *main.js* file like this : 
 
@@ -82,7 +125,7 @@ const module1 = require(./module1.js)
 
 The method `require` will keep a cache to avoid loading twice the same module, and this also avoids having an infinite loop in case of circular dependency. The cache can be accessed through `require.cache`.
 
-However, with Common.js, circular dependency will still not be resolved correctly. You can look at the example in the folder *code_example/commonjs*. If you try to run it with `nodejs index.js`, you will see the following result : 
+However, with CommonJS, circular dependency will still not be resolved correctly. You can look at the example in the folder *code_example/commonjs*. If you try to run it with `nodejs index.js`, you will see the following result : 
 
 ```javascript
 moduleA :
@@ -112,4 +155,4 @@ When *moduleA* is finishing its execution, it replaces its `module.exports` with
 
 The cache for *moduleA* or *moduleB* will never be updated after that. Any other modules requiring those will always receive the attributes stored in the cache.
 
-Learn more at [documentation of Common.js modules](https://nodejs.org/api/modules.html#modules-commonjs-modulesNode.js)
+Learn more at [documentation of CommonJS modules](https://nodejs.org/api/modules.html#modules-commonjs-modulesNode.js)
