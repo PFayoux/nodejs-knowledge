@@ -4,7 +4,7 @@
 
 ECMAScript Module (ESM) has been created after CommonJS and solve most of the issue CommonJS had.
 
-## Syntax
+## Syntax
 
 Instead of `require`, `module.exports` and `exports` like it is for CommonJS, ECMAScript Module use `import ... from ...` to import modules, and `export` to expose attributes, but ECMAScript Module add a new way of exposing attributes with the concept of default export.
 
