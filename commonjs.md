@@ -125,7 +125,7 @@ const module1 = require(./module1.js)
 
 The method `require` will keep a cache to avoid loading twice the same module, and this also avoids having an infinite loop in case of circular dependency. The cache can be accessed through `require.cache`.
 
-However, with CommonJS, circular dependency will still not be resolved correctly. You can look at the example in the folder *code_example/commonjs*. If you try to run it with `nodejs index.js`, you will see the following result : 
+However, with CommonJS, circular dependency will still not be resolved correctly. You can look at the example in the folder *code_example/circular_dependency/commonjs*. If you try to run it with `nodejs index.js`, you will see the following result : 
 
 ```javascript
 moduleA :
