@@ -1,5 +1,5 @@
 {
-  "name": "nodejs_experiment",
+  "name": "stream-example",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -7,6 +7,9 @@
   "scripts": {
     "start": "node index.js"
   },
+  "keywords": [
+    "stream"
+  ],
   "author": "",
   "license": "ISC"
 }
